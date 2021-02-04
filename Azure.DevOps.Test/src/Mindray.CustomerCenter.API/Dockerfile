@@ -6,7 +6,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-run pwd
+run ll
 COPY ["Azure.DevOps.Test/src/Mindray.CustomerCenter.API/Mindray.CustomerCenter.API.csproj", "Mindray.CustomerCenter.API/"]
 RUN dotnet restore "src/Mindray.CustomerCenter.API/Mindray.CustomerCenter.API.csproj"
 COPY . .
