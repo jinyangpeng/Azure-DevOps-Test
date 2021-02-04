@@ -14,6 +14,5 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: cd Azure.DevOps.Test
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
