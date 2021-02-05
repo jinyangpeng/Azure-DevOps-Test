@@ -27,10 +27,9 @@ steps:
     projects: 'Azure.DevOps.Test'
     arguments: '-c Release'
 
-- task: DotNetCoreCLI@4
+- task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
-    publishWebProjects: false
     projects: 'Azure.DevOps.Test/src/Mindray.CustomerCenter.API'
     arguments: '-c Release -o /app/publish'
 
