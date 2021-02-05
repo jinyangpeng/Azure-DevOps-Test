@@ -20,15 +20,29 @@ steps:
     projects: 'Azure.DevOps.Test'
     feedsToUse: 'select'
   displayName: 'dotnet build $(buildConfiguration)'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: 'Azure.DevOps.Test'
     arguments: '-c Release'
-- task: DotNetCoreCLI@3
+
+- task: DotNetCoreCLI@4
   inputs:
     command: 'publish'
-    publishWebProjects: true
+    publishWebProjects: false
+    projects: 'Azure.DevOps.Test/src/Mindray.CustomerCenter.API'
     arguments: '-c Release -o /app/publish'
-    zipAfterPublish: false
-    modifyOutputPath: false
+
+- task: CmdLine@1
+  inputs:
+    script: |
+      echo cd /app/publish...
+      cd /app/publish
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo execing...
+      dotnet Mindray.CustomerCenter.API.dll
+      echo this is success
