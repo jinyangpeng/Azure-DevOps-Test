@@ -25,3 +25,10 @@ steps:
     command: 'build'
     projects: 'Azure.DevOps.Test'
     arguments: '-c Release'
+- task: DotNetCoreCLI@3
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '-c Release -o /app/publish'
+    zipAfterPublish: false
+    modifyOutputPath: false
