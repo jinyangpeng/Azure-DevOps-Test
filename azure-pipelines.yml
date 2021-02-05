@@ -14,5 +14,32 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
+- task: DotNetCoreCLI@1
+  inputs:
+    command: 'restore'
+    projects: 'Azure.DevOps.Test'
+    feedsToUse: 'select'
   displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'Azure.DevOps.Test'
+    arguments: '-c Release'
+- task: DotNetCoreCLI@3
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '-c Release -o /app/publish'
+    zipAfterPublish: false
+    modifyOutputPath: false
+- task: CmdLine@1
+  inputs:
+    script: |
+      echo cd /app/publish...
+      cd /app/publish
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo execing...
+      dotnet Mindray.CustomerCenter.API.dll
+      echo this is success
