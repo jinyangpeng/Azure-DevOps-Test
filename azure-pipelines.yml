@@ -20,3 +20,8 @@ steps:
     projects: 'Azure.DevOps.Test'
     feedsToUse: 'select'
   displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'Azure.DevOps.Test'
+    arguments: '-c Release'
